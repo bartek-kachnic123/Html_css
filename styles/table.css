@@ -1,0 +1,24 @@
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding: 5px;
+}
+thead {
+  background-color: blueviolet;
+}
+/* odd or even */
+tbody tr:nth-child(odd) {
+  background-color: navajowhite;
+}
+tbody tr:nth-child(even) {
+  background-color: thistle;
+}
+tbody tr:hover {
+  transition: 50ms;
+  background-color: violet;
+}
