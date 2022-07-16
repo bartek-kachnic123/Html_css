@@ -1,0 +1,68 @@
+body,
+input,
+button,
+a {
+  background: #202124;
+  color: #e8eaed;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+}
+h1 {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  font-size: 80px;
+}
+
+input[type="text"] {
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 20px;
+  padding: 10px 10px 12px 12px;
+  min-width: 400px;
+  margin-bottom: 20px;
+  width: 45%;
+  padding-left: 40px;
+  padding-right: 20px;
+}
+input[type="text"]:hover {
+  background: #303134;
+  border: 1px solid #303134;
+}
+input[type="text"]:focus {
+  outline: none !important;
+}
+input[type="submit"],
+button[type="submit"] {
+  background: #303134;
+  border: solid 1px #303134;
+  border-radius: 4px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  padding: 0px 16px;
+  margin: 11px 4px;
+}
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+  border: solid 1px rgb(118, 118, 118);
+}
+
+header {
+  text-align: right;
+  text-decoration: none;
+  margin-top: 10px;
+}
+a {
+  text-decoration: none;
+  margin-right: 15px;
+}
+a:hover {
+  text-decoration: underline;
+  color: #e8eaed;
+}
+
+.fa-image {
+  transform: translateX(30px);
+}
