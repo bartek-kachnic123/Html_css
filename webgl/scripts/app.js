@@ -1,10 +1,37 @@
+const vertexShaderTxt = `
+    precision mediump float;
+
+    attribute vec2 vertPosition;
+    attribute vec3 vertColor;
+    
+    varying vec3 fragColor;
+
+    void main()
+    {
+        fragColor = vertColor;
+        gl_Position = vec4(vertPosition, 0.0, 1.0);
+    }
+`;
+
+const fragmentShaderTxt = `
+    precision mediump float;
+    varying vec3 fragColor;
+
+    void main()
+    {
+        gl_FragColor  = vec4(fragColor,1.0);
+    }
+`;
+
+
+
 const initTriangle = function () {
   let canvas = document.getElementById("canvas_triangle");
   let gl = canvas.getContext("webgl");
 
   if (!gl) alert("Webgl not supported!");
 
-  gl.clearColor(0.8, 0.6, 0.2, 1.0);
+  gl.clearColor(1.0, 1.0, 1.0, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   let vertexShader = gl.createShader(gl.VERTEX_SHADER);
@@ -28,11 +55,12 @@ const initTriangle = function () {
   gl.validateProgram(program);
 
   let triangleVert = [
-    0.0, 0.5, 1.0, 0.0, 0.0, -0.5, -0.5, 0.0, 1.0, 0.0, 0.5, -0.5, 0.0, 0.0,
-    1.0,
+    0.0, 0.5, 1.0, 0.0, 0.0, // X Y R G B
+    -0.5, -0.5, 0.0, 1.0, 0.0, 
+    0.5, -0.5, 0.0, 0.0, 1.0,
   ];
 
-  const triangleVertexBufferObject = gl.createBuffer();
+  let triangleVertexBufferObject = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
   gl.bufferData(
     gl.ARRAY_BUFFER,
@@ -64,7 +92,6 @@ const initTriangle = function () {
   gl.enableVertexAttribArray(colorAttrLocation);
 
   gl.useProgram(program);
-
   gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
 
@@ -72,27 +99,3 @@ const initCanvas = function () {
   initTriangle();
 };
 
-const vertexShaderTxt = `
-    precision mediump float;
-
-    attribute vec2 vertPosition;
-    attribute vec3 vertColor;
-    
-    varying vec3 fragColor;
-
-    void main()
-    {
-        fragColor = vertColor;
-        gl_Position = vec4(vertPosition, 0.0, 1.0);
-    }
-`;
-
-const fragmentShaderTxt = `
-    precision mediump float;
-    varying vec3 fragColor;
-
-    void main()
-    {
-        gl_FragColor  = vec4(fragColor,1.0);
-    }
-`;
