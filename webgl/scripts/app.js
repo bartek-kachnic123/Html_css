@@ -88,7 +88,7 @@ const create_figure = function(canvas_id, triangleVert, num_row, triangle_option
   if (triangle_option === 'triangle')
     gl.drawArrays(gl.TRIANGLES, 0, num_row);
   else if (triangle_option == 'triangle_fan')
-    gl.drawArrays(gl.TRIANGLES_FAN, 0, num_row);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, num_row);
 }
 
 const initTriangle = function() {
@@ -137,8 +137,10 @@ const initHexagon = function() {
    0.5, 0.0,  1.0, 1.0, 0.0, 
    0.25, -0.5, 1.0, 0.0, 1.0,
    -0.25, -0.5, 1.0, 0.0, 0.0,
+   
+   -0.5, 0.0, 1.0, 0.0, 0.0, // end
   ]
-  const num_row = 7;
+  const num_row = 8;
   create_figure(canvas_id, triangleVert, num_row, 'triangle_fan')
 }
 
