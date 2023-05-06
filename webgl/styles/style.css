@@ -1,7 +1,7 @@
 body {
     text-align: center;
 }
-#canvas_triangle, #canvas_square {
+#canvas_triangle, #canvas_square, #canvas_hexagon{
     width: 600px;
     height: 600px;
 }
