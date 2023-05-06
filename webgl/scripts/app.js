@@ -23,10 +23,8 @@ const fragmentShaderTxt = `
     }
 `;
 
-
-
-const initTriangle = function () {
-  let canvas = document.getElementById("canvas_triangle");
+const create_figure = function(canvas_id, triangleVert, num_row) {
+  let canvas = document.getElementById(canvas_id);
   let gl = canvas.getContext("webgl");
 
   if (!gl) alert("Webgl not supported!");
@@ -53,6 +51,46 @@ const initTriangle = function () {
   gl.detachShader(program, fragmentShader);
 
   gl.validateProgram(program);
+
+  let triangleVertexBufferObject = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array(triangleVert),
+    gl.STATIC_DRAW
+  );
+
+  const posAttrLocation = gl.getAttribLocation(program, "vertPosition");
+  const colorAttrLocation = gl.getAttribLocation(program, "vertColor");
+
+  gl.vertexAttribPointer(
+    posAttrLocation,
+    2,
+    gl.FLOAT,
+    gl.FALSE,
+    5 * Float32Array.BYTES_PER_ELEMENT,
+    0
+  );
+  gl.vertexAttribPointer(
+    colorAttrLocation,
+    3,
+    gl.FLOAT,
+    gl.FALSE,
+    5 * Float32Array.BYTES_PER_ELEMENT,
+    2 * Float32Array.BYTES_PER_ELEMENT
+  );
+
+  gl.enableVertexAttribArray(posAttrLocation);
+  gl.enableVertexAttribArray(colorAttrLocation);
+
+  gl.useProgram(program);
+  gl.drawArrays(gl.TRIANGLES, 0, num_row);
+
+}
+
+const initTriangle = function() {
+
+  const canvas_id = 'canvas_triangle';
 
   let triangleVert = [
     0.0, 0.5, 1.0, 0.0, 0.0, // X Y R G B
@@ -60,117 +98,28 @@ const initTriangle = function () {
     0.5, -0.5, 0.0, 0.0, 1.0,
   ];
 
-  let triangleVertexBufferObject = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-  gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Float32Array(triangleVert),
-    gl.STATIC_DRAW
-  );
+  const num_row = 3;
 
-  const posAttrLocation = gl.getAttribLocation(program, "vertPosition");
-  const colorAttrLocation = gl.getAttribLocation(program, "vertColor");
+  create_figure(canvas_id, triangleVert, num_row);
+}
 
-  gl.vertexAttribPointer(
-    posAttrLocation,
-    2,
-    gl.FLOAT,
-    gl.FALSE,
-    5 * Float32Array.BYTES_PER_ELEMENT,
-    0
-  );
-  gl.vertexAttribPointer(
-    colorAttrLocation,
-    3,
-    gl.FLOAT,
-    gl.FALSE,
-    5 * Float32Array.BYTES_PER_ELEMENT,
-    2 * Float32Array.BYTES_PER_ELEMENT
-  );
-
-  gl.enableVertexAttribArray(posAttrLocation);
-  gl.enableVertexAttribArray(colorAttrLocation);
-
-  gl.useProgram(program);
-  gl.drawArrays(gl.TRIANGLES, 0, 3);
-};
-
-
-const initSquare = function () {
-  let canvas = document.getElementById("canvas_square");
-  let gl = canvas.getContext("webgl");
-
-  if (!gl) alert("Webgl not supported!");
-
-  gl.clearColor(1.0, 1.0, 1.0, 1.0);
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-  let vertexShader = gl.createShader(gl.VERTEX_SHADER);
-  let fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-
-  gl.shaderSource(vertexShader, vertexShaderTxt);
-  gl.shaderSource(fragmentShader, fragmentShaderTxt);
-
-  gl.compileShader(vertexShader);
-  gl.compileShader(fragmentShader);
-
-  let program = gl.createProgram();
-
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-
-  gl.detachShader(program, vertexShader);
-  gl.detachShader(program, fragmentShader);
-
-  gl.validateProgram(program);
-
+const initSquare = function() {
+  const canvas_id = 'canvas_square';
   let triangleVert = [
-     // Triangle 1
-    -0.5, -0.5, 1.0, 0.0, 0.0, // X Y R G B
-    -0.5, 0.5, 0.0, 1.0, 0.0, 
-    0.5, -0.5, 0.0, 0.0, 1.0,
-     // Triangle 2
-    -0.5, 0.5, 0.0, 1.0, 0.0, 
-    0.5, -0.5, 0.0, 0.0, 1.0,
-    0.5, 0.5, 1.0, 0.0, 0.0,
-  ];
+    // Triangle 1
+   -0.5, -0.5, 1.0, 0.0, 0.0, // X Y R G B
+   -0.5, 0.5, 0.0, 1.0, 0.0, 
+   0.5, -0.5, 0.0, 0.0, 1.0,
+    // Triangle 2
+   -0.5, 0.5, 0.0, 1.0, 0.0, 
+   0.5, -0.5, 0.0, 0.0, 1.0,
+   0.5, 0.5, 1.0, 0.0, 0.0,
+ ];
+ const num_row = 6;
 
-  let triangleVertexBufferObject = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-  gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Float32Array(triangleVert),
-    gl.STATIC_DRAW
-  );
+ create_figure(canvas_id, triangleVert, num_row);
 
-  const posAttrLocation = gl.getAttribLocation(program, "vertPosition");
-  const colorAttrLocation = gl.getAttribLocation(program, "vertColor");
-
-  gl.vertexAttribPointer(
-    posAttrLocation,
-    2,
-    gl.FLOAT,
-    gl.FALSE,
-    5 * Float32Array.BYTES_PER_ELEMENT,
-    0
-  );
-  gl.vertexAttribPointer(
-    colorAttrLocation,
-    3,
-    gl.FLOAT,
-    gl.FALSE,
-    5 * Float32Array.BYTES_PER_ELEMENT,
-    2 * Float32Array.BYTES_PER_ELEMENT
-  );
-
-  gl.enableVertexAttribArray(posAttrLocation);
-  gl.enableVertexAttribArray(colorAttrLocation);
-
-  gl.useProgram(program);
-  gl.drawArrays(gl.TRIANGLES, 0, 6);
-};
-
+}
 const initCanvas = function () {
   initTriangle();
   initSquare();
