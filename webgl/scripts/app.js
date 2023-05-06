@@ -23,7 +23,7 @@ const fragmentShaderTxt = `
     }
 `;
 
-const create_figure = function(canvas_id, triangleVert, num_row) {
+const create_figure = function(canvas_id, triangleVert, num_row, triangle_option='triangle') {
   let canvas = document.getElementById(canvas_id);
   let gl = canvas.getContext("webgl");
 
@@ -84,8 +84,11 @@ const create_figure = function(canvas_id, triangleVert, num_row) {
   gl.enableVertexAttribArray(colorAttrLocation);
 
   gl.useProgram(program);
-  gl.drawArrays(gl.TRIANGLES, 0, num_row);
 
+  if (triangle_option === 'triangle')
+    gl.drawArrays(gl.TRIANGLES, 0, num_row);
+  else if (triangle_option === 'triangle_fan')
+    gl.drawArrays(gl.TRIANGLES_FAN, 0, num_row);
 }
 
 const initTriangle = function() {
@@ -120,6 +123,7 @@ const initSquare = function() {
  create_figure(canvas_id, triangleVert, num_row);
 
 }
+
 const initCanvas = function () {
   initTriangle();
   initSquare();
