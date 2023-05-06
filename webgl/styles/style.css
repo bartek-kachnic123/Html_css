@@ -2,6 +2,6 @@ body {
     text-align: center;
 }
 #canvas_triangle, #canvas_square {
-    width: 800px;
+    width: 600px;
     height: 600px;
 }
