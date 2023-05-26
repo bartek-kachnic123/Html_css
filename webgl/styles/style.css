@@ -1,7 +1,15 @@
-body {
+div {
     text-align: center;
 }
 #canvas_triangle, #canvas_square, #canvas_hexagon{
     width: 600px;
     height: 600px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 2rem;
+    color:blueviolet;
+
+    padding-left: 10px;
 }
